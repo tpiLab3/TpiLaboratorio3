@@ -1,40 +1,45 @@
+/**ESTE MODULO SE ENCARGA DE RENDERIZAR LA PANTALLA DE LOGIN Y DE REGISTRO SEGUN CORRESPONDA */
 import {usuariosServices} from "../../../servicios/usuarios-servicios.js";
 
-const htmlLogin = `<div class="contenedorLogin">
-<div class="cajaLogin">
-    <p >Iniciar sesión</p>
+/**1- Se debe asignar a la siguiente constante todo el código correspondiente al componente de login (/asset/modulos/login.html)  */
+const htmlLogin = `
+<div class="contenedorLogin">
+    <div class="cajaLogin">
+        <p id="iniciar-sesion">Iniciar sesión</p>
+        <p id="registrar-usuario">Registrarse</p>
 
-    <form  class="formLogin" >
+        <form  class="formLogin">
 
-        <div class="input-group">
-            
-            <input type="email" class="form-control" id="loginEmail" placeholder="Email" name="loginEmail" autocomplete required>
-            
-        </div>
-
-        <div class="input-group">
-            
-            <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="loginPassword" autocomplete required>
-        
-        </div>
-
-        <div class="input-group">
-            
-            <input type="password" class="form-control" id="reLoginPassword" placeholder="Repetir Password" name="reLoginPassword"  required>
-        
-        </div>
-                    
-        <div class="row">
-                            
-            <div class="col-4">
-            <button type="submit"  id="iniciar-sesion" class="btnAmarillo">Login</button>
-            </div>
+            <div class="input-group">
                 
-        </div>
-    </form>
-        
+                <input type="email" class="form-control" id="loginEmail" placeholder="Email" name="loginEmail" autocomplete required>
+                
+            </div>
+
+            <div class="input-group">
+                
+                <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="loginPassword" autocomplete required>
+            
+            </div>
+
+            <div class="input-group">
+                
+                <input type="password" class="form-control" id="reLoginPassword" placeholder="Repetir Password" name="reLoginPassword"  required>
+            
+            </div>
+                        
+            <div class="row">
+                                
+                <div class="col-4">
+                <button type="submit"  id="iniciar-sesion" class="btnAmarillo">Login</button>
+                </div>
+                    
+            </div>
+        </form>
+            
+    </div>
 </div>
-</div>`;
+`;
 /*2-Se deben definir 4 variables globales al módulo, una para el formulario html, y otras tres para los inputs de email, contraseña y
  *   repetir contraseña
  */
@@ -45,8 +50,9 @@ var inputRepetirPass;
 
 export async function login() {
     /** 3- Esta función se encarga de llamar a la función crearFormulario y de enlazar el evento submit del formulario de login
-     **/
-    crearFormulario();
+     *
+     */
+    crearFormulario(false);
     formulario.addEventListener("submit", ingresar);
 }
 
@@ -57,14 +63,13 @@ export async function register() {
      *     Por último enlaza el evento submit del formulario a la función registrarUsuario.
      *
      */
-    crearFormulario();
+    crearFormulario(true);
     formulario.addEventListener("submit", registrarUsuario);
 }
 
 function crearFormulario(registrar) {
     /**
      * 1- Esta función deberá capturar el elemento cuya clase es .carrusel y le asignará en su interior un blanco para eliminar su contenido previo.
-     *
      * 2- Deberá realizar lo mismo para la clase .seccionProductos y .vistaProducto.
      * 3- Luego deberá capturar la .seccionLogin para asignarle el contenido html del componente login, el cual se encuentra previamente
      *    cargado en la constante htmlLogin.
@@ -75,24 +80,32 @@ function crearFormulario(registrar) {
      *    el input reLoginPassword se mostrará en pantalla.
      * 7- Por último se deberá capturar el formulario indentificado con la clase .formLogin y asignarlo a la variable global formulario.
      */
-    let carrusel = document.querySelector(".carrusel");
-    let seccionLogin = document.querySelector(".seccionLogin");
-    let seccionProductos = document.querySelector(".seccionProdcuto");
-    let vistaProducto = document.querySelector(".vistaProducto");
+
+    const carrusel = document.querySelector(".carrusel");
+    const seccionProductos = document.querySelector(".seccionProductos");
+    const vistaProducto = document.querySelector(".vistaProducto");
+    const seccionLogin = document.querySelector(".seccionLogin");
+
     carrusel.innerHTML = "";
     seccionProductos.innerHTML = "";
     vistaProducto.innerHTML = "";
     seccionLogin.innerHTML = htmlLogin;
-    let inputEmail = document.querySelector("#loginEmail");
-    let inputPassword = document.querySelector("#loginPassword");
-    let inputRepetirPass = document.querySelector("#reLoginPassword");
-    if (!register) {
-        inputRepetirPass.innerHTML = "";
-        inputRepetirPass.style.display = "none";
+
+    inputEmail = document.getElementById("loginEmail");
+    inputPassword = document.getElementById("loginPassword");
+    inputRepetirPass = document.getElementById("reLoginPassword");
+    const tituloRegistrar = document.getElementById("registrar-usuario");
+    const tituloIniciar = document.getElementById("iniciar-sesion");
+
+    if (!registrar) {
+        inputRepetirPass.outerHTML = "";
+        tituloRegistrar.outerHTML = "";
     } else {
         inputRepetirPass.style.display = "block";
-        formulario = document.querySelector(".formLogin");
+        tituloIniciar.outerHTML = "";
     }
+
+    formulario = document.querySelector(".formLogin");
 }
 
 async function ingresar(e) {
@@ -109,15 +122,21 @@ async function ingresar(e) {
      *     b- Llamar a la función mostrarUsuario, pasandole como parámetro el texto del email de la cuenta.
      * 5- En el caso de que el usuario no sea válido se deberá mostrar una alerta con el texto 'Email o contraseña incorrecto, intenta nuevamente'.
      */
+
     e.preventDefault();
-    let idUsuario = await usuarioExiste();
+
+    const idUsuario = await usuarioExiste();
+
     if (idUsuario) {
+        //usuariosServices.listar(idUsuario);
         setUsuarioAutenticado(true, idUsuario);
         mostrarUsuario(inputEmail.value);
+        window.location.href = "#";
     } else {
         mostrarMensaje("Email o contraseña incorrecto, intenta nuevamente");
     }
 }
+
 async function registrarUsuario(e) {
     /**
      * 1- Esta función tiene como objetivo controlar que el texto en inputPassword sea exactamente igual al texto ingresado en
@@ -130,20 +149,29 @@ async function registrarUsuario(e) {
      *    se muestre la pantalla de login.
      * 5- En caso negativo o falso mostrará una alerta indicando que las contraseñas ingresadas no son iguales.
      */
+
     e.preventDefault();
+
     if (inputPassword.value === inputRepetirPass.value) {
         await usuariosServices.crear(
             null,
             null,
             inputEmail.value,
-            inputPassword.value
+            inputPassword.value,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "cliente"
         );
         mostrarMensaje("Email registrado");
-        window.location.href("#login");
+        window.location.href = "#login";
     } else {
-        mostrarMensaje("Las contraseñas no coinciden");
+        mostrarMensaje("Las contraseñas ingresadas no son iguales");
     }
 }
+
 async function usuarioExiste() {
     /**
      * 1- El objetivo de esta función es consultar la lista de usuarios con la función usuariosServices.listar() y mediante
@@ -152,28 +180,42 @@ async function usuarioExiste() {
      * 2- Si el email y la contraseña son válidos devuelve el id de usuario.
      * 3- Si el email y la contraseña no son válido devuelve falso.
      */
-    let existeUsuario;
+
+    let existeUsuario = false;
     let idUsuario;
 
-    await usuariosServices
-        .listar()
-        .then(respuesta => {
-            respuesta.array.forEach(usuario => {
-                if (
-                    usuario.email == inputEmail.value &&
-                    usuario.password == inputPassword.value
-                ) {
-                    idUsuario == usuario.id;
-                    return (existeUsuario = true);
-                } else {
-                    return;
-                }
-            });
-        })
-        .catch(error => console.log(error));
+    try {
+        const usuarios = await usuariosServices.listar();
+
+        usuarios.forEach(usuario => {
+            if (
+                usuario.correo === inputEmail.value &&
+                usuario.password === inputPassword.value
+            ) {
+                idUsuario = usuario.id;
+                existeUsuario = true;
+            }
+        });
+    } catch (error) {
+        console.error(error);
+    }
+
     if (!existeUsuario) {
+        mostrarMensaje("El usuario no existe");
         return false;
     }
+
+    return idUsuario;
+
+    /*const usuarios = await usuariosServices.listar();
+
+    for (const usuario of usuarios) {
+        if (usuario.correo === inputEmail.value && usuario.password === inputPassword.value) {
+            return usuario.id;
+        }
+    }
+
+    return false;*/
 }
 
 export function mostrarUsuario(email) {
@@ -182,11 +224,13 @@ export function mostrarUsuario(email) {
      * 2- Deberá capturar del dom la clase .btnRegister y asignarle el texto "Logout" y a este elemento asignarle el valor
      *    "#logout" sobre el atributo href.
      **/
-    let botonLogin = document.querySelector(".btnLogin");
-    let botonRegistrar = document.querySelector(".btnRegister");
-    botonLogin.textContent = email;
-    botonRegistrar.textContent = "Logout";
-    botonRegistrar.setAttribute("href", "#logout");
+
+    const btnLogin = document.querySelector(".btnLogin");
+    const btnRegister = document.querySelector(".btnRegister");
+
+    btnLogin.textContent = email;
+    btnRegister.textContent = "Logout";
+    btnRegister.href = "#logout";
 }
 
 function mostrarMensaje(msj) {
@@ -205,11 +249,13 @@ export function setUsuarioAutenticado(booleano, idUsuario) {
     let email = "";
     if (inputEmail) {
         email = inputEmail.value;
-        sessionStorage.setItem("Autemticado", booleano);
-        sessionStorage.setItem("idUsuario", idUsuario);
-        sessionStorage.setItem("email", email);
     }
+
+    sessionStorage.setItem("autenticado", booleano);
+    sessionStorage.setItem("idUsuario", idUsuario);
+    sessionStorage.setItem("email", email);
 }
+
 export function getUsuarioAutenticado() {
     /**
      * 1- Esta función debera leer los valores almacenados en el sessionStorage y construir un objeto con los valores
@@ -217,8 +263,9 @@ export function getUsuarioAutenticado() {
      * 2- Luego los devolverá como resultado.
      */
     var session = new Object();
-    session.autenticado = sessionStorage.getItem("Autenticado") === "True";
+    session.autenticado = sessionStorage.getItem("autenticado") === "true";
     session.idUsuario = sessionStorage.getItem("idUsuario");
     session.email = sessionStorage.getItem("email");
+
     return session;
 }

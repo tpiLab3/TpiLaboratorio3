@@ -46,9 +46,9 @@ const htmlCarrusel = `
 `;
 
 export async function Carrusel() {
-  let d = document;
-  let seccionCarrusel = d.querySelector(".carrusel");
-  let seccionLogin = d.querySelector(".seccionLogin");
-  seccionLogin.innerHTML = "";
-  seccionCarrusel.innerHTML = htmlCarrusel;
+    let d = document;
+    let seccionCarrusel = d.querySelector(".carrusel");
+    let seccionLogin = d.querySelector(".seccionLogin");
+    seccionLogin.innerHTML = "";
+    seccionCarrusel.innerHTML = htmlCarrusel;
 }
