@@ -1,20 +1,31 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap");
+@keyframes aparecer {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+        filter: blur(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
 .categoria h1 {
     font-family: "Montserrat";
     font-weight: bold;
     font-size: 3rem;
     padding: 2rem;
-    margin: 1rem auto;
+    margin: 5rem auto;
     margin-bottom: 2rem;
     text-transform: uppercase;
     text-align: center;
     color: #181818;
-    border-bottom: 2px solid rgba(245, 245, 245, 0.445);
     width: 91%;
-    background-color: whitesmoke;
+    background-color: #3db3d7;
     border-radius: 4rem;
-    width: 25%;
+    box-shadow: 0 0 10px #3db3d76b;
 }
 
 .productos {
@@ -22,13 +33,17 @@
     justify-content: space-between;
     font-weight: bold;
     flex-wrap: wrap;
-    padding: 0 1rem;
-    background-color: #dbdbdb;
+    background-color: rgba(9, 1, 17, 0.341);
     border: 5px solid rgba(0, 0, 0, 0.425);
     border-radius: 2rem;
     box-shadow: 0 0 10px 0 rgb(0 0 0 / 15%);
     width: 90%;
     margin: auto;
+    animation: aparecer 0.5s ease-in-out;
+}
+.item-producto:hover {
+    transform: scale(1.05);
+    transition: all 0.5s ease-in-out;
 }
 
 .item-producto {
@@ -46,6 +61,9 @@
     background-color: #434459;
     border: 7px solid #13131a;
     border-radius: 20px;
+    padding: 4rem;
+    animation: aparecer 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
 
 .item-producto img {
