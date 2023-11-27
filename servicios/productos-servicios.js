@@ -1,22 +1,24 @@
-const url = "https://65480baf902874dff3acf283.mockapi.io/api/TpiLab3bis/productos";
-
+const url = "https://6564036dceac41c0761d440b.mockapi.io/productos";
 
 async function listar(id) {
     let cadUrl;
-    if(isNaN(id))
-      cadUrl= url;
-    else 
-      cadUrl = url + "/" + id;  
-    return await fetch(cadUrl)
-        .then(respuesta => respuesta.json());
+    if (isNaN(id)) cadUrl = url;
+    else cadUrl = url + "/" + id;
+    return await fetch(cadUrl).then(respuesta => respuesta.json());
 }
 
-async function crear(nombre, descripcion, foto, precio, idCategoria, categoria) {
-
+async function crear(
+    nombre,
+    descripcion,
+    foto,
+    precio,
+    idCategoria,
+    categoria
+) {
     return await fetch(url, {
-        method: 'POST',
+        method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
         body: JSON.stringify({
             nombre: nombre,
@@ -24,18 +26,25 @@ async function crear(nombre, descripcion, foto, precio, idCategoria, categoria) 
             foto: foto,
             precio: precio,
             idCategoria: idCategoria,
-            categoria: categoria
-        })
-    })
+            categoria: categoria,
+        }),
+    });
 }
 
-async function editar(id, nombre, descripcion, foto, precio, idCategoria, categoria) {
-
+async function editar(
+    id,
+    nombre,
+    descripcion,
+    foto,
+    precio,
+    idCategoria,
+    categoria
+) {
     let urlPut = url + "/" + id;
     return await fetch(urlPut, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
         body: JSON.stringify({
             nombre: nombre,
@@ -43,30 +52,27 @@ async function editar(id, nombre, descripcion, foto, precio, idCategoria, catego
             foto: foto,
             precio: precio,
             idCategoria: idCategoria,
-            categoria: categoria
-        })
-    })
+            categoria: categoria,
+        }),
+    });
 }
 
-async function borrar(id){
-  
+async function borrar(id) {
     let urlPut = url + "/" + id;
     return await fetch(urlPut, {
-            method: 'DELETE'
-       })
+        method: "DELETE",
+    });
 }
 
 async function listarPorCategoria(idCategoria) {
-    const newUrl= new URL(url);
-    newUrl.searchParams.append('idCategoria', idCategoria);
-    return await fetch(newUrl)
-        .then(respuesta => respuesta.json());
- 
+    const newUrl = new URL(url);
+    newUrl.searchParams.append("idCategoria", idCategoria);
+    return await fetch(newUrl).then(respuesta => respuesta.json());
 }
 export const productosServices = {
     listar,
     crear,
     editar,
     borrar,
-    listarPorCategoria
-}
+    listarPorCategoria,
+};
