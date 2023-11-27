@@ -1,6 +1,7 @@
 * {
     margin: 0;
     box-sizing: border-box;
+    font-family: "Montserrat";
 }
 @keyframes login {
     0% {
@@ -51,7 +52,6 @@
     font-size: 1.6rem;
     font-weight: 800;
     letter-spacing: 0.2rem;
-
     width: 100%;
     padding: 1rem;
     border-radius: 0.4rem;

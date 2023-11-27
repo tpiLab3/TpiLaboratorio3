@@ -6,11 +6,15 @@
     font-size: 3rem;
     padding: 2rem;
     margin: 1rem auto;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
     text-align: center;
-    color: #3db3d7;
+    color: #181818;
     border-bottom: 2px solid rgba(245, 245, 245, 0.445);
     width: 91%;
-    text-shadow: 0 5px 10px #00000036;
+    background-color: whitesmoke;
+    border-radius: 4rem;
+    width: 25%;
 }
 
 .productos {
@@ -19,8 +23,8 @@
     font-weight: bold;
     flex-wrap: wrap;
     padding: 0 1rem;
-    background-color: #0011352c;
-    border: 2px solid whitesmoke;
+    background-color: #dbdbdb;
+    border: 5px solid rgba(0, 0, 0, 0.425);
     border-radius: 2rem;
     box-shadow: 0 0 10px 0 rgb(0 0 0 / 15%);
     width: 90%;
@@ -29,6 +33,7 @@
 
 .item-producto {
     flex: 0 0 20rem;
+    padding: 1rem;
     height: 30rem;
     display: flex;
     flex-direction: column;
@@ -38,6 +43,9 @@
     text-overflow: ellipsis;
     overflow: hidden;
     color: whitesmoke;
+    background-color: #434459;
+    border: 7px solid #13131a;
+    border-radius: 20px;
 }
 
 .item-producto img {

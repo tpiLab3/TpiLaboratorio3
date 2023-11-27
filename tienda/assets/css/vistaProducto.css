@@ -3,6 +3,10 @@
     margin: 0;
     box-sizing: border-box;
 }
+div .imagen {
+    width: 100%;
+    height: 100%;
+}
 
 .vistaProducto {
     display: flex;
@@ -10,15 +14,28 @@
 }
 
 .vistaProducto .imagen {
-    flex: 1 1;
+    flex: 1, 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid #1d1d1d;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.308);
+    background-color: rgba(245, 245, 245, 0.466);
 }
 
 .vistaProducto .texto {
-    flex: 3 1;
+    flex: 2, 1;
     display: flex;
     flex-wrap: wrap;
     align-content: center;
     padding: 1rem;
+    color: whitesmoke;
+    margin-left: 2rem;
+    background-color: #3d6ed748;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.308);
+    border: 5px solid #1d1d1d;
+    border-radius: 1rem;
 }
 
 #nameProducto {
@@ -39,7 +56,7 @@
     margin: 2rem 0;
     font-size: 3rem;
     font-weight: bold;
-    color: rgb(189, 146, 39);
+    color: whitesmoke;
 }
 .form-group {
     width: 100%;
@@ -49,7 +66,6 @@
     width: 100%;
     font-weight: bold;
 }
-
 .form-group input {
     border: 1px solid black;
     border-radius: 1rem;
@@ -59,8 +75,16 @@
     font-size: 1.5rem;
 }
 #btnComprar {
+    cursor: pointer;
     margin: 2rem 0;
     padding: 1.2rem 1.5rem;
+    border-radius: 2rem;
     color: white;
-    background-color: black;
+    background-color: #3d6ed7;
+    transition: all 0.5s ease-in-out;
+}
+#btnComprar:hover {
+    filter: drop-shadow(2px 0px 10px #3d6ed76e);
+    transform: scale(1.1);
+    /* transition: all 0.5s ease-in-out; */
 }

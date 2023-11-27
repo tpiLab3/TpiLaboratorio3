@@ -4,6 +4,7 @@
     border: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: "Montserrat";
 }
 
 html {
@@ -23,11 +24,13 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #383858;
+    background-color: transparent;
     height: 10vh;
     padding: 1rem;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.212);
+    backdrop-filter: blur(10px);
 }
+
 header img {
     max-width: 100%;
     width: 150px;
@@ -46,6 +49,7 @@ a {
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
+    transition: all 1s ease-in;
 }
 /* .login div:first-child {
     font-size: x-large;
@@ -56,7 +60,13 @@ a {
     flex-direction: column;
     padding-left: 1.6rem;
 } */
-
+.login a {
+    transition: all 1s ease-in;
+}
+.login a:hover {
+    border-bottom: 1px solid whitesmoke;
+    transition: all 1s ease-in;
+}
 footer {
     display: flex;
     justify-content: center;
