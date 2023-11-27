@@ -1,6 +1,11 @@
 /**ESTE MODULO SE ENCARGA DE RENDERIZAR LA PANTALLA DE LOGIN Y DE REGISTRO SEGUN CORRESPONDA */
 import {usuariosServices} from "../../../servicios/usuarios-servicios.js";
+const updateCursor = ({x, y}) => {
+    document.documentElement.style.setProperty("--x", x);
+    document.documentElement.style.setProperty("--y", y);
+};
 
+document.body.addEventListener("pointermove", updateCursor);
 /**1- Se debe asignar a la siguiente constante todo el código correspondiente al componente de login (/asset/modulos/login.html)  */
 const htmlLogin = `
 <div class="contenedorLogin">
